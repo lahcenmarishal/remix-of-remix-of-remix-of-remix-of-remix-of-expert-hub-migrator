@@ -100,7 +100,18 @@ export function teachersCopy(
     .filter(Boolean)
     .join(" ")
     .replace(" :", ":");
-  return pack(h1, intro, `${s ? `أساتذة ${s}` : "أساتذة خصوصيون"}${city ? ` ${city.arIn}` : ""} — ${BRAND}`);
+  const levelAr = level ? `لـ${shortLevel(level, "ar")}` : "";
+  let leadAr: string;
+  if (subject && city) {
+    leadAr = [subject.arTeacher, levelAr, city.arIn].filter(Boolean).join(" ");
+  } else if (subject) {
+    leadAr = [arTeachersPlural(subject), levelAr, "في المغرب"].filter(Boolean).join(" ");
+  } else if (city) {
+    leadAr = ["أساتذة خصوصيون", levelAr, city.arIn].filter(Boolean).join(" ");
+  } else {
+    leadAr = ["أساتذة خصوصيون", levelAr, "في المغرب"].filter(Boolean).join(" ");
+  }
+  return pack(h1, intro, leadAr);
 }
 
 export function coursesCopy(lang: SeoLang, city: SeoCity | null, subject: SeoSubject | null): Copy {
