@@ -225,14 +225,20 @@ export function cityCopy(lang: SeoLang, city: SeoCity): Copy {
 
 export function homeCopy(lang: SeoLang): Copy {
   return lang === "fr"
-    ? pack(
-        "Trouver un professeur particulier au Maroc",
-        "ProFinder met en relation élèves et professeurs particuliers vérifiés partout au Maroc : choisissez une matière, un niveau et une ville, puis recevez des propositions.",
-        `Professeurs particuliers au Maroc`,
-      )
-    : pack(
-        "ابحث عن أستاذ خصوصي في المغرب",
-        "ProFinder يربط التلاميذ بأساتذة خصوصيين موثوقين في كل المغرب: اختر المادة والمستوى والمدينة، ثم استقبل العروض.",
-        `أساتذة خصوصيون في المغرب`,
-      );
+    ? {
+        ...pack(
+          "Trouver un professeur particulier au Maroc",
+          "ProFinder met en relation élèves et professeurs particuliers vérifiés partout au Maroc : choisissez une matière, un niveau et une ville, puis recevez des propositions.",
+          "Professeurs particuliers au Maroc",
+        ),
+        title: `${BRAND} — Trouvez un professeur particulier au Maroc`,
+      }
+    : {
+        ...pack(
+          "ابحث عن أستاذ خصوصي في المغرب",
+          "ProFinder يربط التلاميذ بأساتذة خصوصيين موثوقين في كل المغرب: اختر المادة والمستوى والمدينة، ثم استقبل العروض.",
+          "أساتذة خصوصيون في المغرب",
+        ),
+        title: `${BRAND} — ابحث عن أستاذ خصوصي في المغرب`,
+      };
 }
