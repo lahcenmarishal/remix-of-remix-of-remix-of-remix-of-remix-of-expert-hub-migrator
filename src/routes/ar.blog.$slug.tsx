@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { BlogArticleView } from "@/components/blog-views";
 import { blogArticleHead } from "@/lib/blog-seo";
 import { fetchAlternateSlug, fetchPostBySlug, fetchPublishedPosts } from "@/lib/blog";
+import { useBlogLangSync } from "@/lib/blog-lang";
 
 export const Route = createFileRoute("/ar/blog/$slug")({
   loader: async ({ params }) => {
@@ -18,6 +19,7 @@ export const Route = createFileRoute("/ar/blog/$slug")({
 });
 
 function BlogPostPageAr() {
-  const { post, related } = Route.useLoaderData();
+  const { post, related, alternateSlug } = Route.useLoaderData();
+  useBlogLangSync("ar", { isArticle: true, alternateSlug });
   return <BlogArticleView lang="ar" post={post} related={related} />;
 }
