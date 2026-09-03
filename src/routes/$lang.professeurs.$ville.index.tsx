@@ -1,8 +1,16 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
-import { SeoLandingPage } from "@/components/seo-landing";
-import { nav, teachersCopy } from "@/lib/seo-copy";
-import { citiesForSubject, homeCrumb, levelLinks, subjectsInCity } from "@/lib/seo-links";
+import { SeoLandingPage, SeoLink } from "@/components/seo-landing";
+import { label, nav, teachersCopy } from "@/lib/seo-copy";
 import {
+  citiesForSubject,
+  crumb,
+  homeCrumb,
+  levelLinks,
+  localIntentLinks,
+  subjectsInCity,
+} from "@/lib/seo-links";
+import {
+  SEO_SUBJECTS,
   breadcrumbLd,
   findCity,
   findSubject,
