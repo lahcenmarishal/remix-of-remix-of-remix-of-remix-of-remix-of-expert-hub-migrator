@@ -52,12 +52,13 @@ export const nav = (key: keyof typeof NAV, lang: SeoLang) => NAV[key][lang];
 type Copy = { h1: string; intro: string; title: string; description: string };
 
 const trim160 = (s: string) => (s.length > 158 ? `${s.slice(0, 155)}…` : s);
-/** `titleLead` = partie descriptive du <title>, la marque est ajoutée ici. */
-const pack = (h1: string, intro: string, titleLead: string): Copy => ({
+/** `titleLead` = partie descriptive du <title>, la marque est ajoutée ici.
+ *  `desc` = meta description propre à la page (sinon repli sur l'intro). */
+const pack = (h1: string, intro: string, titleLead: string, desc?: string): Copy => ({
   h1,
   intro,
   title: withBrand(titleLead),
-  description: trim160(intro),
+  description: trim160(desc ?? intro),
 });
 
 export function teachersCopy(
