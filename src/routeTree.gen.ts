@@ -44,6 +44,7 @@ import { Route as FrBlogSlugRouteImport } from './routes/fr.blog.$slug'
 import { Route as LangProfesseursVilleIndexRouteImport } from './routes/$lang.professeurs.$ville.index'
 import { Route as ApiPublicCronExpireLaunchOffersRouteImport } from './routes/api/public/cron/expire-launch-offers'
 import { Route as LangProfesseursVilleMatiereIndexRouteImport } from './routes/$lang.professeurs.$ville.$matiere.index'
+import { Route as LangProfesseursVilleMatiereNiveauRouteImport } from './routes/$lang.professeurs.$ville.$matiere.$niveau'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -225,6 +226,12 @@ const LangProfesseursVilleMatiereIndexRoute =
     path: '/professeurs/$ville/$matiere/',
     getParentRoute: () => LangRoute,
   } as any)
+const LangProfesseursVilleMatiereNiveauRoute =
+  LangProfesseursVilleMatiereNiveauRouteImport.update({
+    id: '/professeurs/$ville/$matiere/$niveau',
+    path: '/professeurs/$ville/$matiere/$niveau',
+    getParentRoute: () => LangRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -260,6 +267,7 @@ export interface FileRoutesByFullPath {
   '/fr/blog/': typeof FrBlogIndexRoute
   '/api/public/cron/expire-launch-offers': typeof ApiPublicCronExpireLaunchOffersRoute
   '/$lang/professeurs/$ville/': typeof LangProfesseursVilleIndexRoute
+  '/$lang/professeurs/$ville/$matiere/$niveau': typeof LangProfesseursVilleMatiereNiveauRoute
   '/$lang/professeurs/$ville/$matiere/': typeof LangProfesseursVilleMatiereIndexRoute
 }
 export interface FileRoutesByTo {
@@ -295,6 +303,7 @@ export interface FileRoutesByTo {
   '/fr/blog': typeof FrBlogIndexRoute
   '/api/public/cron/expire-launch-offers': typeof ApiPublicCronExpireLaunchOffersRoute
   '/$lang/professeurs/$ville': typeof LangProfesseursVilleIndexRoute
+  '/$lang/professeurs/$ville/$matiere/$niveau': typeof LangProfesseursVilleMatiereNiveauRoute
   '/$lang/professeurs/$ville/$matiere': typeof LangProfesseursVilleMatiereIndexRoute
 }
 export interface FileRoutesById {
@@ -333,6 +342,7 @@ export interface FileRoutesById {
   '/fr/blog/': typeof FrBlogIndexRoute
   '/api/public/cron/expire-launch-offers': typeof ApiPublicCronExpireLaunchOffersRoute
   '/$lang/professeurs/$ville/': typeof LangProfesseursVilleIndexRoute
+  '/$lang/professeurs/$ville/$matiere/$niveau': typeof LangProfesseursVilleMatiereNiveauRoute
   '/$lang/professeurs/$ville/$matiere/': typeof LangProfesseursVilleMatiereIndexRoute
 }
 export interface FileRouteTypes {
@@ -371,6 +381,7 @@ export interface FileRouteTypes {
     | '/fr/blog/'
     | '/api/public/cron/expire-launch-offers'
     | '/$lang/professeurs/$ville/'
+    | '/$lang/professeurs/$ville/$matiere/$niveau'
     | '/$lang/professeurs/$ville/$matiere/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -406,6 +417,7 @@ export interface FileRouteTypes {
     | '/fr/blog'
     | '/api/public/cron/expire-launch-offers'
     | '/$lang/professeurs/$ville'
+    | '/$lang/professeurs/$ville/$matiere/$niveau'
     | '/$lang/professeurs/$ville/$matiere'
   id:
     | '__root__'
@@ -443,6 +455,7 @@ export interface FileRouteTypes {
     | '/fr/blog/'
     | '/api/public/cron/expire-launch-offers'
     | '/$lang/professeurs/$ville/'
+    | '/$lang/professeurs/$ville/$matiere/$niveau'
     | '/$lang/professeurs/$ville/$matiere/'
   fileRoutesById: FileRoutesById
 }
@@ -718,6 +731,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LangProfesseursVilleMatiereIndexRouteImport
       parentRoute: typeof LangRoute
     }
+    '/$lang/professeurs/$ville/$matiere/$niveau': {
+      id: '/$lang/professeurs/$ville/$matiere/$niveau'
+      path: '/professeurs/$ville/$matiere/$niveau'
+      fullPath: '/$lang/professeurs/$ville/$matiere/$niveau'
+      preLoaderRoute: typeof LangProfesseursVilleMatiereNiveauRouteImport
+      parentRoute: typeof LangRoute
+    }
   }
 }
 
@@ -752,6 +772,7 @@ interface LangRouteChildren {
   LangIndexRoute: typeof LangIndexRoute
   LangProfesseursIndexRoute: typeof LangProfesseursIndexRoute
   LangProfesseursVilleIndexRoute: typeof LangProfesseursVilleIndexRoute
+  LangProfesseursVilleMatiereNiveauRoute: typeof LangProfesseursVilleMatiereNiveauRoute
   LangProfesseursVilleMatiereIndexRoute: typeof LangProfesseursVilleMatiereIndexRoute
 }
 
@@ -759,6 +780,8 @@ const LangRouteChildren: LangRouteChildren = {
   LangIndexRoute: LangIndexRoute,
   LangProfesseursIndexRoute: LangProfesseursIndexRoute,
   LangProfesseursVilleIndexRoute: LangProfesseursVilleIndexRoute,
+  LangProfesseursVilleMatiereNiveauRoute:
+    LangProfesseursVilleMatiereNiveauRoute,
   LangProfesseursVilleMatiereIndexRoute: LangProfesseursVilleMatiereIndexRoute,
 }
 
