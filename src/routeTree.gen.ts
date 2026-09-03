@@ -31,6 +31,7 @@ import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ProfesseursIndexRouteImport } from './routes/professeurs.index'
 import { Route as ProfesseursIdRouteImport } from './routes/professeurs.$id'
+import { Route as LangCoursParticuliersIndexRouteImport } from './routes/$lang.cours-particuliers.index'
 import { Route as LangProfesseurSlugRouteImport } from './routes/$lang.professeur.$slug'
 import { Route as LangProfesseursIndexRouteImport } from './routes/$lang.professeurs.index'
 import { Route as AuthenticatedDemandesIndexRouteImport } from './routes/_authenticated/demandes.index'
@@ -156,6 +157,12 @@ const ProfesseursIdRoute = ProfesseursIdRouteImport.update({
   path: '/professeurs/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LangCoursParticuliersIndexRoute =
+  LangCoursParticuliersIndexRouteImport.update({
+    id: '/cours-particuliers/',
+    path: '/cours-particuliers/',
+    getParentRoute: () => LangRoute,
+  } as any)
 const LangProfesseurSlugRoute = LangProfesseurSlugRouteImport.update({
   id: '/professeur/$slug',
   path: '/professeur/$slug',
@@ -267,6 +274,7 @@ export interface FileRoutesByFullPath {
   '/pro/inscription': typeof AuthenticatedProInscriptionRoute
   '/ar/blog/$slug': typeof ArBlogSlugRoute
   '/fr/blog/$slug': typeof FrBlogSlugRoute
+  '/$lang/cours-particuliers/': typeof LangCoursParticuliersIndexRoute
   '/$lang/professeurs/': typeof LangProfesseursIndexRoute
   '/demandes/': typeof AuthenticatedDemandesIndexRoute
   '/pro/': typeof AuthenticatedProIndexRoute
@@ -304,6 +312,7 @@ export interface FileRoutesByTo {
   '/pro/inscription': typeof AuthenticatedProInscriptionRoute
   '/ar/blog/$slug': typeof ArBlogSlugRoute
   '/fr/blog/$slug': typeof FrBlogSlugRoute
+  '/$lang/cours-particuliers': typeof LangCoursParticuliersIndexRoute
   '/$lang/professeurs': typeof LangProfesseursIndexRoute
   '/demandes': typeof AuthenticatedDemandesIndexRoute
   '/pro': typeof AuthenticatedProIndexRoute
@@ -344,6 +353,7 @@ export interface FileRoutesById {
   '/_authenticated/pro/inscription': typeof AuthenticatedProInscriptionRoute
   '/ar/blog/$slug': typeof ArBlogSlugRoute
   '/fr/blog/$slug': typeof FrBlogSlugRoute
+  '/$lang/cours-particuliers/': typeof LangCoursParticuliersIndexRoute
   '/$lang/professeurs/': typeof LangProfesseursIndexRoute
   '/_authenticated/demandes/': typeof AuthenticatedDemandesIndexRoute
   '/_authenticated/pro/': typeof AuthenticatedProIndexRoute
@@ -384,6 +394,7 @@ export interface FileRouteTypes {
     | '/pro/inscription'
     | '/ar/blog/$slug'
     | '/fr/blog/$slug'
+    | '/$lang/cours-particuliers/'
     | '/$lang/professeurs/'
     | '/demandes/'
     | '/pro/'
@@ -421,6 +432,7 @@ export interface FileRouteTypes {
     | '/pro/inscription'
     | '/ar/blog/$slug'
     | '/fr/blog/$slug'
+    | '/$lang/cours-particuliers'
     | '/$lang/professeurs'
     | '/demandes'
     | '/pro'
@@ -460,6 +472,7 @@ export interface FileRouteTypes {
     | '/_authenticated/pro/inscription'
     | '/ar/blog/$slug'
     | '/fr/blog/$slug'
+    | '/$lang/cours-particuliers/'
     | '/$lang/professeurs/'
     | '/_authenticated/demandes/'
     | '/_authenticated/pro/'
@@ -652,6 +665,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfesseursIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$lang/cours-particuliers/': {
+      id: '/$lang/cours-particuliers/'
+      path: '/cours-particuliers'
+      fullPath: '/$lang/cours-particuliers/'
+      preLoaderRoute: typeof LangCoursParticuliersIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
     '/$lang/professeur/$slug': {
       id: '/$lang/professeur/$slug'
       path: '/professeur/$slug'
@@ -790,6 +810,7 @@ const AuthenticatedRouteRouteWithChildren =
 interface LangRouteChildren {
   LangIndexRoute: typeof LangIndexRoute
   LangProfesseurSlugRoute: typeof LangProfesseurSlugRoute
+  LangCoursParticuliersIndexRoute: typeof LangCoursParticuliersIndexRoute
   LangProfesseursIndexRoute: typeof LangProfesseursIndexRoute
   LangProfesseursVilleIndexRoute: typeof LangProfesseursVilleIndexRoute
   LangProfesseursVilleMatiereNiveauRoute: typeof LangProfesseursVilleMatiereNiveauRoute
@@ -799,6 +820,7 @@ interface LangRouteChildren {
 const LangRouteChildren: LangRouteChildren = {
   LangIndexRoute: LangIndexRoute,
   LangProfesseurSlugRoute: LangProfesseurSlugRoute,
+  LangCoursParticuliersIndexRoute: LangCoursParticuliersIndexRoute,
   LangProfesseursIndexRoute: LangProfesseursIndexRoute,
   LangProfesseursVilleIndexRoute: LangProfesseursVilleIndexRoute,
   LangProfesseursVilleMatiereNiveauRoute:
