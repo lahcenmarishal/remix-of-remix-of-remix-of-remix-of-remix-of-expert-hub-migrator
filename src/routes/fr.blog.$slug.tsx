@@ -18,6 +18,7 @@ export const Route = createFileRoute("/fr/blog/$slug")({
 });
 
 function BlogPostPageFr() {
-  const { post, related } = Route.useLoaderData();
+  const { post, related, alternateSlug } = Route.useLoaderData();
+  useBlogLangSync("fr", { isArticle: true, alternateSlug });
   return <BlogArticleView lang="fr" post={post} related={related} />;
 }
