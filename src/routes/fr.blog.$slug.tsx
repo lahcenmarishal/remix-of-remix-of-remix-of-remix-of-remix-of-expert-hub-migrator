@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { BlogArticleView } from "@/components/blog-views";
 import { blogArticleHead } from "@/lib/blog-seo";
 import { fetchAlternateSlug, fetchPostBySlug, fetchPublishedPosts } from "@/lib/blog";
+import { useBlogLangSync } from "@/lib/blog-lang";
 
 export const Route = createFileRoute("/fr/blog/$slug")({
   loader: async ({ params }) => {
