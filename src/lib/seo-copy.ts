@@ -84,10 +84,22 @@ export function teachersCopy(
     } else {
       lead = `Professeurs particuliers${level ? ` ${shortLevel(level, "fr")}` : ""} au Maroc`;
     }
+    // Meta description propre à l'intention (ville / matière / niveau).
+    let descFr: string;
+    if (subject && city) {
+      descFr = `Trouvez un professeur de ${subject.fr.toLowerCase()}${l ? ` niveau ${l}` : ""} à ${c} sur Profinder. Consultez les profils, niveaux enseignés, disponibilités et tarifs horaires.`;
+    } else if (subject) {
+      descFr = `Professeurs de ${subject.fr.toLowerCase()}${l ? ` pour le niveau ${l}` : ""} partout au Maroc : profils vérifiés, ville d'intervention, tarif horaire et avis d'élèves.`;
+    } else if (city) {
+      descFr = `Professeurs particuliers à ${c}${l ? ` pour le niveau ${l}` : ""} : comparez les matières enseignées, les tarifs et les disponibilités, puis contactez le professeur qui vous convient.`;
+    } else {
+      descFr = `Comparez les professeurs particuliers au Maroc${l ? ` pour le niveau ${l}` : ""} : matière, ville, tarif horaire et avis. Publiez votre demande et recevez des propositions en 24 h.`;
+    }
     return pack(
       `Professeurs particuliers${suffix}`,
       `Trouvez un professeur particulier${suffix} : profils vérifiés, tarif horaire, avis d'élèves et disponibilités. Publiez votre demande et recevez des propositions en moins de 24 h.`,
       lead,
+      descFr,
     );
   }
   // Arabe : formulations naturelles marocaines (أستاذ خصوصي / أستاذ الرياضيات / في المدينة)
