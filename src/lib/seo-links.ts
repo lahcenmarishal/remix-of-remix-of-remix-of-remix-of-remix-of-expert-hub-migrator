@@ -51,3 +51,45 @@ export const subjectSegmentLinks = (lang: SeoLang): SeoLinkItem[] =>
     params: { lang, ville: s.slug },
     label: label.subject(s, lang),
   }));
+
+/** Formulations locales autour d'une ville (intentions réelles de recherche). */
+export const localIntentLinks = (lang: SeoLang, city: SeoCity): SeoLinkItem[] => {
+  const items: SeoLinkItem[] = [
+    {
+      to: "/$lang/cours-particuliers/$ville",
+      params: { lang, ville: city.slug },
+      label: lang === "fr" ? `Cours particuliers à ${city.fr}` : `دروس خصوصية ${city.arIn}`,
+    },
+    {
+      to: "/$lang/villes/$ville",
+      params: { lang, ville: city.slug },
+      label: lang === "fr" ? `Soutien scolaire à ${city.fr}` : `الدعم المدرسي ${city.arBi}`,
+    },
+  ];
+  const featured = ["mathematiques", "physique-chimie", "francais", "anglais"];
+  for (const slug of featured) {
+    const s = SEO_SUBJECTS.find((x) => x.slug === slug);
+    if (!s) continue;
+    items.push({
+      to: "/$lang/professeurs/$ville/$matiere",
+      params: { lang, ville: city.slug, matiere: s.slug },
+      label: lang === "fr" ? `Professeur de ${s.fr.toLowerCase()} à ${city.fr}` : `${s.arTeacher} ${city.arIn}`,
+    });
+    items.push({
+      to: "/$lang/cours-particuliers/$ville/$matiere",
+      params: { lang, ville: city.slug, matiere: s.slug },
+      label:
+        lang === "fr"
+          ? `Cours de ${s.fr.toLowerCase()} à domicile à ${city.fr}`
+          : `دروس ${s.ar} في المنزل ${city.arBi}`,
+    });
+  }
+  return items;
+};
+
+/** Lien direct vers la page ville dédiée. */
+export const cityPageLink = (lang: SeoLang, city: SeoCity): SeoLinkItem => ({
+  to: "/$lang/villes/$ville",
+  params: { lang, ville: city.slug },
+  label: lang === "fr" ? `Tout sur ${city.fr}` : `كل شيء ${city.arBi}`,
+});
