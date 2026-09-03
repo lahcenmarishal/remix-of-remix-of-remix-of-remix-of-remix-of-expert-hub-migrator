@@ -70,14 +70,9 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const urls = await buildUrls();
         const body = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.w3.org/1999/xhtml/sitemap" xmlns:sm="http://www.sitemaps.org/schemas/sitemap/0.9">
-</urlset>`.replace(
-          /[\s\S]*/,
-          `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((u) => `  <url><loc>${SITE_URL}${u}</loc></url>`).join("\n")}
-</urlset>`,
-        );
+</urlset>`;
         return new Response(body, {
           headers: {
             "content-type": "application/xml; charset=utf-8",

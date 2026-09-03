@@ -18,6 +18,7 @@ import { Route as ConfidentialiteRouteImport } from './routes/confidentialite'
 import { Route as DevenirProfesseurRouteImport } from './routes/devenir-professeur'
 import { Route as InscriptionRouteImport } from './routes/inscription'
 import { Route as PublierRouteImport } from './routes/publier'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as VerifierEmailRouteImport } from './routes/verifier-email'
 import { Route as VerifyEmailRouteImport } from './routes/verify-email'
@@ -98,6 +99,11 @@ const InscriptionRoute = InscriptionRouteImport.update({
 const PublierRoute = PublierRouteImport.update({
   id: '/publier',
   path: '/publier',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TarifsRoute = TarifsRouteImport.update({
@@ -305,6 +311,7 @@ export interface FileRoutesByFullPath {
   '/devenir-professeur': typeof DevenirProfesseurRoute
   '/inscription': typeof InscriptionRoute
   '/publier': typeof PublierRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tarifs': typeof TarifsRoute
   '/verifier-email': typeof VerifierEmailRoute
   '/verify-email': typeof VerifyEmailRoute
@@ -351,6 +358,7 @@ export interface FileRoutesByTo {
   '/devenir-professeur': typeof DevenirProfesseurRoute
   '/inscription': typeof InscriptionRoute
   '/publier': typeof PublierRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tarifs': typeof TarifsRoute
   '/verifier-email': typeof VerifierEmailRoute
   '/verify-email': typeof VerifyEmailRoute
@@ -400,6 +408,7 @@ export interface FileRoutesById {
   '/devenir-professeur': typeof DevenirProfesseurRoute
   '/inscription': typeof InscriptionRoute
   '/publier': typeof PublierRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tarifs': typeof TarifsRoute
   '/verifier-email': typeof VerifierEmailRoute
   '/verify-email': typeof VerifyEmailRoute
@@ -449,6 +458,7 @@ export interface FileRouteTypes {
     | '/devenir-professeur'
     | '/inscription'
     | '/publier'
+    | '/sitemap.xml'
     | '/tarifs'
     | '/verifier-email'
     | '/verify-email'
@@ -495,6 +505,7 @@ export interface FileRouteTypes {
     | '/devenir-professeur'
     | '/inscription'
     | '/publier'
+    | '/sitemap.xml'
     | '/tarifs'
     | '/verifier-email'
     | '/verify-email'
@@ -543,6 +554,7 @@ export interface FileRouteTypes {
     | '/devenir-professeur'
     | '/inscription'
     | '/publier'
+    | '/sitemap.xml'
     | '/tarifs'
     | '/verifier-email'
     | '/verify-email'
@@ -592,6 +604,7 @@ export interface RootRouteChildren {
   DevenirProfesseurRoute: typeof DevenirProfesseurRoute
   InscriptionRoute: typeof InscriptionRoute
   PublierRoute: typeof PublierRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TarifsRoute: typeof TarifsRoute
   VerifierEmailRoute: typeof VerifierEmailRoute
   VerifyEmailRoute: typeof VerifyEmailRoute
@@ -670,6 +683,13 @@ declare module '@tanstack/react-router' {
       path: '/publier'
       fullPath: '/publier'
       preLoaderRoute: typeof PublierRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tarifs': {
@@ -1011,6 +1031,7 @@ const rootRouteChildren: RootRouteChildren = {
   DevenirProfesseurRoute: DevenirProfesseurRoute,
   InscriptionRoute: InscriptionRoute,
   PublierRoute: PublierRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TarifsRoute: TarifsRoute,
   VerifierEmailRoute: VerifierEmailRoute,
   VerifyEmailRoute: VerifyEmailRoute,
