@@ -17,7 +17,7 @@ export function SeoLink({
 }: {
   to: string;
   params?: Record<string, string> | undefined;
-  className?: string;
+  className?: string | undefined;
   children: ReactNode;
 }) {
   return (
@@ -33,7 +33,7 @@ export function SeoShell({
   children,
 }: {
   lang: SeoLang;
-  breadcrumbs?: SeoLinkItem[];
+  breadcrumbs?: SeoLinkItem[] | undefined;
   children: ReactNode;
 }) {
   return (
@@ -99,10 +99,10 @@ export function SeoLandingPage({
   h1: string;
   intro: string;
   filter: SeoFilter;
-  breadcrumbs?: SeoLinkItem[];
-  sections?: Array<{ title: string; items: SeoLinkItem[] }>;
-  faq?: Array<{ q: string; a: string }>;
-  children?: ReactNode;
+  breadcrumbs?: SeoLinkItem[] | undefined;
+  sections?: Array<{ title: string; items: SeoLinkItem[] }> | undefined;
+  faq?: Array<{ q: string; a: string }> | undefined;
+  children?: ReactNode | undefined;
 }) {
   const pros = useQuery({ queryKey: ["professionals"], queryFn: fetchProfessionals });
   const matches = filterPros(pros.data ?? [], filter);
