@@ -72,10 +72,21 @@ export function teachersCopy(
   if (lang === "fr") {
     const parts = [s ? `de ${s}` : null, l ? `niveau ${l}` : null, c ? `à ${c}` : null].filter(Boolean);
     const suffix = parts.length ? ` ${parts.join(" ")}` : "";
+    // Titres FR selon l'intention : générique, ville, matière, ville+matière(+niveau).
+    let lead: string;
+    if (subject && city) {
+      lead = `Professeur de ${shortSubjectFr(subject)}${level ? ` ${shortLevel(level, "fr")}` : ""} à ${c}`;
+    } else if (subject) {
+      lead = `Professeurs de ${subject.fr.toLowerCase()} au Maroc`;
+    } else if (city) {
+      lead = `Professeurs particuliers${level ? ` ${shortLevel(level, "fr")}` : ""} à ${c}`;
+    } else {
+      lead = `Professeurs particuliers${level ? ` ${shortLevel(level, "fr")}` : ""} au Maroc`;
+    }
     return pack(
       `Professeurs particuliers${suffix}`,
       `Trouvez un professeur particulier${suffix} : profils vérifiés, tarif horaire, avis d'élèves et disponibilités. Publiez votre demande et recevez des propositions en moins de 24 h.`,
-      `Professeurs${suffix} — ${BRAND}`,
+      lead,
     );
   }
   // Arabe : formulations naturelles marocaines (أستاذ خصوصي / أستاذ الرياضيات / في المدينة)
