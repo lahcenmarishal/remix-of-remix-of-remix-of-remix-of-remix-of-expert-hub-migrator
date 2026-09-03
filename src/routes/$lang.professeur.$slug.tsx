@@ -7,7 +7,16 @@ import { fetchProfessionals, cityName, serviceName } from "@/lib/marketplace";
 import { nav } from "@/lib/seo-copy";
 import { homeCrumb } from "@/lib/seo-links";
 import { SITE_URL } from "@/lib/blog";
-import { breadcrumbLd, findProBySlug, seoHead, type SeoLang } from "@/lib/seo-taxonomy";
+import {
+  SEO_CITIES,
+  SEO_SUBJECTS,
+  breadcrumbLd,
+  findProBySlug,
+  seoHead,
+  serviceMatchesSubject,
+  type SeoLang,
+} from "@/lib/seo-taxonomy";
+import { withBrand } from "@/lib/seo-copy";
 
 export const Route = createFileRoute("/$lang/professeur/$slug")({
   loader: async ({ params }) => {
@@ -22,6 +31,10 @@ export const Route = createFileRoute("/$lang/professeur/$slug")({
       rate: pro.hourly_rate,
       rating: pro.rating_avg,
       ratingCount: pro.rating_count,
+      subjectSlug:
+        SEO_SUBJECTS.find((sub) => pro.professional_services.some((s) => serviceMatchesSubject(s.service_id, sub)))
+          ?.slug ?? null,
+      citySlug: SEO_CITIES.find((c) => c.cityName === cityName(pro.city_id))?.slug ?? null,
       subjects: Array.from(
         new Set(pro.professional_services.map((s) => serviceName(s.service_id)).filter(Boolean)),
       ) as string[],
@@ -34,16 +47,23 @@ export const Route = createFileRoute("/$lang/professeur/$slug")({
       return seoHead({
         lang,
         path,
-        title: lang === "fr" ? "Professeur introuvable — ProFinder" : "الأستاذ غير موجود — ProFinder",
+        title: lang === "fr" ? "Professeur introuvable | Profinder" : "الأستاذ غير موجود | Profinder",
         description: lang === "fr" ? "Ce profil n'est plus disponible." : "هذا الملف لم يعد متاحاً.",
         index: false,
       });
     }
     const subjects = loaderData.subjects.slice(0, 4).join(", ");
-    const title =
+    const seoSubject = SEO_SUBJECTS.find((s) => s.slug === loaderData.subjectSlug) ?? null;
+    const seoCity = SEO_CITIES.find((c) => c.slug === loaderData.citySlug) ?? null;
+    // « Professeur de mathématiques à Agadir — Nom » / « أستاذ الرياضيات في أكادير — الاسم »
+    const lead =
       lang === "fr"
-        ? `${loaderData.name} — professeur particulier${loaderData.city ? ` à ${loaderData.city}` : ""}`
-        : `${loaderData.name} — أستاذ خصوصي${loaderData.city ? ` في ${loaderData.city}` : ""}`;
+        ? `${seoSubject ? `Professeur de ${seoSubject.fr.toLowerCase()}` : "Professeur particulier"}${
+            loaderData.city ? ` à ${loaderData.city}` : ""
+          } — ${loaderData.name}`
+        : `${seoSubject ? seoSubject.arTeacher : "أستاذ خصوصي"}${
+            seoCity ? ` ${seoCity.arIn}` : ""
+          } — ${loaderData.name}`;
     const description =
       lang === "fr"
         ? `${loaderData.name} enseigne ${subjects || "plusieurs matières"}${loaderData.city ? ` à ${loaderData.city}` : ""}. Tarif ${loaderData.rate} DH/h, profil vérifié, avis d'élèves.`
@@ -51,7 +71,7 @@ export const Route = createFileRoute("/$lang/professeur/$slug")({
     return seoHead({
       lang,
       path,
-      title: title.slice(0, 59),
+      title: withBrand(lead),
       description,
       jsonLd: [
         {
