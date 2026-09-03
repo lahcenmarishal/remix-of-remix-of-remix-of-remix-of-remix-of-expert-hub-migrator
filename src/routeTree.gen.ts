@@ -43,6 +43,7 @@ import { Route as ArBlogIndexRouteImport } from './routes/ar.blog.index'
 import { Route as ArBlogSlugRouteImport } from './routes/ar.blog.$slug'
 import { Route as FrBlogIndexRouteImport } from './routes/fr.blog.index'
 import { Route as FrBlogSlugRouteImport } from './routes/fr.blog.$slug'
+import { Route as LangCoursParticuliersVilleIndexRouteImport } from './routes/$lang.cours-particuliers.$ville.index'
 import { Route as LangProfesseursVilleIndexRouteImport } from './routes/$lang.professeurs.$ville.index'
 import { Route as ApiPublicCronExpireLaunchOffersRouteImport } from './routes/api/public/cron/expire-launch-offers'
 import { Route as LangProfesseursVilleMatiereIndexRouteImport } from './routes/$lang.professeurs.$ville.$matiere.index'
@@ -221,6 +222,12 @@ const FrBlogSlugRoute = FrBlogSlugRouteImport.update({
   path: '/fr/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LangCoursParticuliersVilleIndexRoute =
+  LangCoursParticuliersVilleIndexRouteImport.update({
+    id: '/cours-particuliers/$ville/',
+    path: '/cours-particuliers/$ville/',
+    getParentRoute: () => LangRoute,
+  } as any)
 const LangProfesseursVilleIndexRoute =
   LangProfesseursVilleIndexRouteImport.update({
     id: '/professeurs/$ville/',
@@ -281,6 +288,7 @@ export interface FileRoutesByFullPath {
   '/ar/blog/': typeof ArBlogIndexRoute
   '/fr/blog/': typeof FrBlogIndexRoute
   '/api/public/cron/expire-launch-offers': typeof ApiPublicCronExpireLaunchOffersRoute
+  '/$lang/cours-particuliers/$ville/': typeof LangCoursParticuliersVilleIndexRoute
   '/$lang/professeurs/$ville/': typeof LangProfesseursVilleIndexRoute
   '/$lang/professeurs/$ville/$matiere/$niveau': typeof LangProfesseursVilleMatiereNiveauRoute
   '/$lang/professeurs/$ville/$matiere/': typeof LangProfesseursVilleMatiereIndexRoute
@@ -319,6 +327,7 @@ export interface FileRoutesByTo {
   '/ar/blog': typeof ArBlogIndexRoute
   '/fr/blog': typeof FrBlogIndexRoute
   '/api/public/cron/expire-launch-offers': typeof ApiPublicCronExpireLaunchOffersRoute
+  '/$lang/cours-particuliers/$ville': typeof LangCoursParticuliersVilleIndexRoute
   '/$lang/professeurs/$ville': typeof LangProfesseursVilleIndexRoute
   '/$lang/professeurs/$ville/$matiere/$niveau': typeof LangProfesseursVilleMatiereNiveauRoute
   '/$lang/professeurs/$ville/$matiere': typeof LangProfesseursVilleMatiereIndexRoute
@@ -360,6 +369,7 @@ export interface FileRoutesById {
   '/ar/blog/': typeof ArBlogIndexRoute
   '/fr/blog/': typeof FrBlogIndexRoute
   '/api/public/cron/expire-launch-offers': typeof ApiPublicCronExpireLaunchOffersRoute
+  '/$lang/cours-particuliers/$ville/': typeof LangCoursParticuliersVilleIndexRoute
   '/$lang/professeurs/$ville/': typeof LangProfesseursVilleIndexRoute
   '/$lang/professeurs/$ville/$matiere/$niveau': typeof LangProfesseursVilleMatiereNiveauRoute
   '/$lang/professeurs/$ville/$matiere/': typeof LangProfesseursVilleMatiereIndexRoute
@@ -401,6 +411,7 @@ export interface FileRouteTypes {
     | '/ar/blog/'
     | '/fr/blog/'
     | '/api/public/cron/expire-launch-offers'
+    | '/$lang/cours-particuliers/$ville/'
     | '/$lang/professeurs/$ville/'
     | '/$lang/professeurs/$ville/$matiere/$niveau'
     | '/$lang/professeurs/$ville/$matiere/'
@@ -439,6 +450,7 @@ export interface FileRouteTypes {
     | '/ar/blog'
     | '/fr/blog'
     | '/api/public/cron/expire-launch-offers'
+    | '/$lang/cours-particuliers/$ville'
     | '/$lang/professeurs/$ville'
     | '/$lang/professeurs/$ville/$matiere/$niveau'
     | '/$lang/professeurs/$ville/$matiere'
@@ -479,6 +491,7 @@ export interface FileRouteTypes {
     | '/ar/blog/'
     | '/fr/blog/'
     | '/api/public/cron/expire-launch-offers'
+    | '/$lang/cours-particuliers/$ville/'
     | '/$lang/professeurs/$ville/'
     | '/$lang/professeurs/$ville/$matiere/$niveau'
     | '/$lang/professeurs/$ville/$matiere/'
@@ -749,6 +762,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FrBlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$lang/cours-particuliers/$ville/': {
+      id: '/$lang/cours-particuliers/$ville/'
+      path: '/cours-particuliers/$ville'
+      fullPath: '/$lang/cours-particuliers/$ville/'
+      preLoaderRoute: typeof LangCoursParticuliersVilleIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
     '/$lang/professeurs/$ville/': {
       id: '/$lang/professeurs/$ville/'
       path: '/professeurs/$ville'
@@ -812,6 +832,7 @@ interface LangRouteChildren {
   LangProfesseurSlugRoute: typeof LangProfesseurSlugRoute
   LangCoursParticuliersIndexRoute: typeof LangCoursParticuliersIndexRoute
   LangProfesseursIndexRoute: typeof LangProfesseursIndexRoute
+  LangCoursParticuliersVilleIndexRoute: typeof LangCoursParticuliersVilleIndexRoute
   LangProfesseursVilleIndexRoute: typeof LangProfesseursVilleIndexRoute
   LangProfesseursVilleMatiereNiveauRoute: typeof LangProfesseursVilleMatiereNiveauRoute
   LangProfesseursVilleMatiereIndexRoute: typeof LangProfesseursVilleMatiereIndexRoute
@@ -822,6 +843,7 @@ const LangRouteChildren: LangRouteChildren = {
   LangProfesseurSlugRoute: LangProfesseurSlugRoute,
   LangCoursParticuliersIndexRoute: LangCoursParticuliersIndexRoute,
   LangProfesseursIndexRoute: LangProfesseursIndexRoute,
+  LangCoursParticuliersVilleIndexRoute: LangCoursParticuliersVilleIndexRoute,
   LangProfesseursVilleIndexRoute: LangProfesseursVilleIndexRoute,
   LangProfesseursVilleMatiereNiveauRoute:
     LangProfesseursVilleMatiereNiveauRoute,
