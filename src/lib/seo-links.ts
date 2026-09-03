@@ -43,3 +43,11 @@ export const citiesForSubject = (lang: SeoLang, matiere: string, frName: string,
     params: { lang, ville: c.slug, matiere },
     label: lang === "fr" ? `${frName} à ${c.fr}` : `${arName} في ${c.ar}`,
   }));
+
+/** Matières présentées comme premier segment : /fr/professeurs/[matiere] */
+export const subjectSegmentLinks = (lang: SeoLang): SeoLinkItem[] =>
+  SEO_SUBJECTS.map((s) => ({
+    to: "/$lang/professeurs/$ville",
+    params: { lang, ville: s.slug },
+    label: label.subject(s, lang),
+  }));

@@ -35,6 +35,7 @@ import { Route as LangCoursParticuliersIndexRouteImport } from './routes/$lang.c
 import { Route as LangMatieresIndexRouteImport } from './routes/$lang.matieres.index'
 import { Route as LangMatieresMatiereRouteImport } from './routes/$lang.matieres.$matiere'
 import { Route as LangNiveauxIndexRouteImport } from './routes/$lang.niveaux.index'
+import { Route as LangNiveauxNiveauRouteImport } from './routes/$lang.niveaux.$niveau'
 import { Route as LangProfesseurSlugRouteImport } from './routes/$lang.professeur.$slug'
 import { Route as LangProfesseursIndexRouteImport } from './routes/$lang.professeurs.index'
 import { Route as LangVillesIndexRouteImport } from './routes/$lang.villes.index'
@@ -185,6 +186,11 @@ const LangNiveauxIndexRoute = LangNiveauxIndexRouteImport.update({
   path: '/niveaux/',
   getParentRoute: () => LangRoute,
 } as any)
+const LangNiveauxNiveauRoute = LangNiveauxNiveauRouteImport.update({
+  id: '/niveaux/$niveau',
+  path: '/niveaux/$niveau',
+  getParentRoute: () => LangRoute,
+} as any)
 const LangProfesseurSlugRoute = LangProfesseurSlugRouteImport.update({
   id: '/professeur/$slug',
   path: '/professeur/$slug',
@@ -313,6 +319,7 @@ export interface FileRoutesByFullPath {
   '/blog/': typeof BlogIndexRoute
   '/professeurs/': typeof ProfesseursIndexRoute
   '/$lang/matieres/$matiere': typeof LangMatieresMatiereRoute
+  '/$lang/niveaux/$niveau': typeof LangNiveauxNiveauRoute
   '/$lang/professeur/$slug': typeof LangProfesseurSlugRoute
   '/$lang/villes/$ville': typeof LangVillesVilleRoute
   '/demandes/$id': typeof AuthenticatedDemandesIdRoute
@@ -358,6 +365,7 @@ export interface FileRoutesByTo {
   '/blog': typeof BlogIndexRoute
   '/professeurs': typeof ProfesseursIndexRoute
   '/$lang/matieres/$matiere': typeof LangMatieresMatiereRoute
+  '/$lang/niveaux/$niveau': typeof LangNiveauxNiveauRoute
   '/$lang/professeur/$slug': typeof LangProfesseurSlugRoute
   '/$lang/villes/$ville': typeof LangVillesVilleRoute
   '/demandes/$id': typeof AuthenticatedDemandesIdRoute
@@ -406,6 +414,7 @@ export interface FileRoutesById {
   '/blog/': typeof BlogIndexRoute
   '/professeurs/': typeof ProfesseursIndexRoute
   '/$lang/matieres/$matiere': typeof LangMatieresMatiereRoute
+  '/$lang/niveaux/$niveau': typeof LangNiveauxNiveauRoute
   '/$lang/professeur/$slug': typeof LangProfesseurSlugRoute
   '/$lang/villes/$ville': typeof LangVillesVilleRoute
   '/_authenticated/demandes/$id': typeof AuthenticatedDemandesIdRoute
@@ -454,6 +463,7 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/professeurs/'
     | '/$lang/matieres/$matiere'
+    | '/$lang/niveaux/$niveau'
     | '/$lang/professeur/$slug'
     | '/$lang/villes/$ville'
     | '/demandes/$id'
@@ -499,6 +509,7 @@ export interface FileRouteTypes {
     | '/blog'
     | '/professeurs'
     | '/$lang/matieres/$matiere'
+    | '/$lang/niveaux/$niveau'
     | '/$lang/professeur/$slug'
     | '/$lang/villes/$ville'
     | '/demandes/$id'
@@ -546,6 +557,7 @@ export interface FileRouteTypes {
     | '/blog/'
     | '/professeurs/'
     | '/$lang/matieres/$matiere'
+    | '/$lang/niveaux/$niveau'
     | '/$lang/professeur/$slug'
     | '/$lang/villes/$ville'
     | '/_authenticated/demandes/$id'
@@ -779,6 +791,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LangNiveauxIndexRouteImport
       parentRoute: typeof LangRoute
     }
+    '/$lang/niveaux/$niveau': {
+      id: '/$lang/niveaux/$niveau'
+      path: '/niveaux/$niveau'
+      fullPath: '/$lang/niveaux/$niveau'
+      preLoaderRoute: typeof LangNiveauxNiveauRouteImport
+      parentRoute: typeof LangRoute
+    }
     '/$lang/professeur/$slug': {
       id: '/$lang/professeur/$slug'
       path: '/professeur/$slug'
@@ -945,6 +964,7 @@ const AuthenticatedRouteRouteWithChildren =
 interface LangRouteChildren {
   LangIndexRoute: typeof LangIndexRoute
   LangMatieresMatiereRoute: typeof LangMatieresMatiereRoute
+  LangNiveauxNiveauRoute: typeof LangNiveauxNiveauRoute
   LangProfesseurSlugRoute: typeof LangProfesseurSlugRoute
   LangVillesVilleRoute: typeof LangVillesVilleRoute
   LangCoursParticuliersIndexRoute: typeof LangCoursParticuliersIndexRoute
@@ -962,6 +982,7 @@ interface LangRouteChildren {
 const LangRouteChildren: LangRouteChildren = {
   LangIndexRoute: LangIndexRoute,
   LangMatieresMatiereRoute: LangMatieresMatiereRoute,
+  LangNiveauxNiveauRoute: LangNiveauxNiveauRoute,
   LangProfesseurSlugRoute: LangProfesseurSlugRoute,
   LangVillesVilleRoute: LangVillesVilleRoute,
   LangCoursParticuliersIndexRoute: LangCoursParticuliersIndexRoute,
