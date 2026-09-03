@@ -455,6 +455,15 @@ export function SiteFooter({ variant: variantProp }: { variant?: SiteVariant }) 
             <Link to="/fr/blog" className="flex items-center gap-1.5 hover:text-primary">
               <BookOpen className="size-4" /> Blog
             </Link>
+            <Link to="/$lang/matieres" params={{ lang: "fr" }} className="hover:text-primary">
+              Matières
+            </Link>
+            <Link to="/$lang/villes" params={{ lang: "fr" }} className="hover:text-primary">
+              Villes
+            </Link>
+            <Link to="/$lang/niveaux" params={{ lang: "fr" }} className="hover:text-primary">
+              Niveaux
+            </Link>
             <Link
               to="/auth"
               search={{ mode: "signup", role: "pro" }}
