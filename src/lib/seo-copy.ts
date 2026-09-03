@@ -49,13 +49,18 @@ export function teachersCopy(
       `Professeurs${suffix} — ${BRAND}`,
     );
   }
-  const parts = [s ? `${s}` : null, l ? `${l}` : null, c ? `في ${c}` : null].filter(Boolean);
-  const suffix = parts.length ? ` ${parts.join(" ")}` : "";
-  return pack(
-    `أساتذة الدعم المدرسي${suffix}`,
-    `اعثر على أستاذ خصوصي${suffix}: ملفات موثوقة، السعر بالساعة، آراء التلاميذ والتوفر. انشر طلبك واستقبل عروضاً في أقل من 24 ساعة.`,
-    `أساتذة${suffix} — ${BRAND}`,
-  );
+  // Arabe : formulations naturelles marocaines (أستاذ خصوصي / أستاذ الرياضيات / في المدينة)
+  const teacher = subject ? subject.arTeacher : "أستاذ خصوصي";
+  const h1 = [`${teacher}`, l ? `لمستوى ${l}` : null, city ? city.arIn : null].filter(Boolean).join(" ");
+  const intro = [
+    `اعثر على ${teacher}${city ? ` ${city.arBi}` : " في المغرب"}`,
+    l ? `لمستوى ${l}` : null,
+    ": ملفات موثوقة، السعر بالساعة، آراء التلاميذ والتوفر. انشر طلبك واستقبل عروض الأساتذة في أقل من 24 ساعة.",
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .replace(" :", ":");
+  return pack(h1, intro, `${s ? `أساتذة ${s}` : "أساتذة خصوصيون"}${city ? ` ${city.arIn}` : ""} — ${BRAND}`);
 }
 
 export function coursesCopy(lang: SeoLang, city: SeoCity | null, subject: SeoSubject | null): Copy {
@@ -70,12 +75,12 @@ export function coursesCopy(lang: SeoLang, city: SeoCity | null, subject: SeoSub
       `Cours particuliers${t} — ${BRAND}`,
     );
   }
-  const suffix = [s, c ? `في ${c}` : null].filter(Boolean).join(" ");
-  const t = suffix ? ` ${suffix}` : "";
+  const t = [s ? `في ${s}` : null, city ? city.arIn : null].filter(Boolean).join(" ");
+  const h1 = `دروس خصوصية${t ? ` ${t}` : " في المغرب"}`;
   return pack(
-    `دروس الدعم المدرسي${t}`,
-    `دروس خصوصية${t} في المنزل أو عند الأستاذ أو عن بعد. قارن الأسعار والمستويات واحجز مع أستاذ موثوق.`,
-    `دروس الدعم${t} — ${BRAND}`,
+    h1,
+    `${s ? `دروس الدعم في ${s}` : "دروس الدعم المدرسي"}${city ? ` ${city.arBi}` : ""}: في المنزل أو عند الأستاذ أو عن بعد. قارن الأسعار والمستويات واحجز مع أستاذ موثوق.`,
+    `${h1} — ${BRAND}`,
   );
 }
 
@@ -88,7 +93,7 @@ export function subjectHubCopy(lang: SeoLang): Copy {
       )
     : pack(
         "المواد الدراسية",
-        "جميع المواد التي يدرّسها الأساتذة الخصوصيون في المغرب: الرياضيات، الفيزياء والكيمياء، علوم الحياة والأرض، اللغات، الفلسفة والمعلوميات.",
+        "جميع المواد التي يدرّسها الأساتذة الخصوصيون في المغرب: الرياضيات، الفيزياء والكيمياء، علوم الحياة والأرض، اللغات، الفلسفة، المعلوميات، الاقتصاد والمحاسبة.",
         `المواد — دروس خصوصية بالمغرب | ${BRAND}`,
       );
 }
@@ -102,7 +107,7 @@ export function cityHubCopy(lang: SeoLang): Copy {
       )
     : pack(
         "المدن المغطاة",
-        "أساتذة خصوصيون متاحون في أهم المدن المغربية: الدار البيضاء، الرباط، مراكش، فاس، طنجة وأكادير وغيرها.",
+        "أساتذة خصوصيون متاحون في أهم المدن المغربية: بالدار البيضاء، بالرباط، بمراكش، بفاس، بطنجة وبأكادير وغيرها.",
         `المدن — أساتذة خصوصيون | ${BRAND}`,
       );
 }
@@ -116,7 +121,7 @@ export function levelHubCopy(lang: SeoLang): Copy {
       )
     : pack(
         "المستويات الدراسية",
-        "من الابتدائي إلى التعليم العالي: اعثر على أستاذ خصوصي مناسب لمستوى التلميذ، مع مواكبة حسب السلك والمادة.",
+        "من الابتدائي والإعدادي إلى الجذع المشترك والباكالوريا ثم الإجازة والماستر: اعثر على أستاذ خصوصي مناسب لمستوى التلميذ.",
         `المستويات الدراسية — الدعم المدرسي | ${BRAND}`,
       );
 }
@@ -146,7 +151,7 @@ export function subjectCopy(lang: SeoLang, subject: SeoSubject): Copy {
       )
     : pack(
         `دروس ${s}`,
-        `أساتذة ${s} في المغرب: جميع المستويات، دروس في المنزل أو عن بعد، أسعار واضحة وآراء موثوقة.`,
+        `${subject.arTeacher} في المغرب: جميع المستويات، دروس الدعم في المنزل أو عن بعد، أسعار واضحة وآراء موثوقة.`,
         `دروس ${s} — ${BRAND}`,
       );
 }
@@ -160,9 +165,9 @@ export function cityCopy(lang: SeoLang, city: SeoCity): Copy {
         `Cours particuliers à ${c} — ${BRAND}`,
       )
     : pack(
-        `دروس خصوصية في ${c}`,
-        `الدعم المدرسي في ${c}: أساتذة موثوقون حسب المادة والمستوى، دروس في المنزل أو عن بعد، ورد على طلبك في أقل من 24 ساعة.`,
-        `دروس خصوصية في ${c} — ${BRAND}`,
+        `دروس خصوصية ${city.arIn}`,
+        `الدعم المدرسي ${city.arBi}: أساتذة موثوقون حسب المادة والمستوى، دروس في المنزل أو عن بعد، ورد على طلبك في أقل من 24 ساعة.`,
+        `دروس خصوصية ${city.arIn} — ${BRAND}`,
       );
 }
 
