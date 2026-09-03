@@ -49,13 +49,18 @@ export function teachersCopy(
       `Professeurs${suffix} — ${BRAND}`,
     );
   }
-  const parts = [s ? `${s}` : null, l ? `${l}` : null, c ? `في ${c}` : null].filter(Boolean);
-  const suffix = parts.length ? ` ${parts.join(" ")}` : "";
-  return pack(
-    `أساتذة الدعم المدرسي${suffix}`,
-    `اعثر على أستاذ خصوصي${suffix}: ملفات موثوقة، السعر بالساعة، آراء التلاميذ والتوفر. انشر طلبك واستقبل عروضاً في أقل من 24 ساعة.`,
-    `أساتذة${suffix} — ${BRAND}`,
-  );
+  // Arabe : formulations naturelles marocaines (أستاذ خصوصي / أستاذ الرياضيات / في المدينة)
+  const teacher = subject ? subject.arTeacher : "أستاذ خصوصي";
+  const h1 = [`${teacher}`, l ? `لمستوى ${l}` : null, city ? city.arIn : null].filter(Boolean).join(" ");
+  const intro = [
+    `اعثر على ${teacher}${city ? ` ${city.arBi}` : " في المغرب"}`,
+    l ? `لمستوى ${l}` : null,
+    ": ملفات موثوقة، السعر بالساعة، آراء التلاميذ والتوفر. انشر طلبك واستقبل عروض الأساتذة في أقل من 24 ساعة.",
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .replace(" :", ":");
+  return pack(h1, intro, `${s ? `أساتذة ${s}` : "أساتذة خصوصيون"}${city ? ` ${city.arIn}` : ""} — ${BRAND}`);
 }
 
 export function coursesCopy(lang: SeoLang, city: SeoCity | null, subject: SeoSubject | null): Copy {
@@ -70,12 +75,12 @@ export function coursesCopy(lang: SeoLang, city: SeoCity | null, subject: SeoSub
       `Cours particuliers${t} — ${BRAND}`,
     );
   }
-  const suffix = [s, c ? `في ${c}` : null].filter(Boolean).join(" ");
-  const t = suffix ? ` ${suffix}` : "";
+  const t = [s ? `في ${s}` : null, city ? city.arIn : null].filter(Boolean).join(" ");
+  const h1 = `دروس خصوصية${t ? ` ${t}` : " في المغرب"}`;
   return pack(
-    `دروس الدعم المدرسي${t}`,
-    `دروس خصوصية${t} في المنزل أو عند الأستاذ أو عن بعد. قارن الأسعار والمستويات واحجز مع أستاذ موثوق.`,
-    `دروس الدعم${t} — ${BRAND}`,
+    h1,
+    `${s ? `دروس الدعم في ${s}` : "دروس الدعم المدرسي"}${city ? ` ${city.arBi}` : ""}: في المنزل أو عند الأستاذ أو عن بعد. قارن الأسعار والمستويات واحجز مع أستاذ موثوق.`,
+    `${h1} — ${BRAND}`,
   );
 }
 
