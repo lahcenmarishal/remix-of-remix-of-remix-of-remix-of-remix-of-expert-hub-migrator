@@ -31,6 +31,7 @@ import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ProfesseursIndexRouteImport } from './routes/professeurs.index'
 import { Route as ProfesseursIdRouteImport } from './routes/professeurs.$id'
+import { Route as LangProfesseurSlugRouteImport } from './routes/$lang.professeur.$slug'
 import { Route as LangProfesseursIndexRouteImport } from './routes/$lang.professeurs.index'
 import { Route as AuthenticatedDemandesIndexRouteImport } from './routes/_authenticated/demandes.index'
 import { Route as AuthenticatedDemandesIdRouteImport } from './routes/_authenticated/demandes.$id'
@@ -155,6 +156,11 @@ const ProfesseursIdRoute = ProfesseursIdRouteImport.update({
   path: '/professeurs/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LangProfesseurSlugRoute = LangProfesseurSlugRouteImport.update({
+  id: '/professeur/$slug',
+  path: '/professeur/$slug',
+  getParentRoute: () => LangRoute,
+} as any)
 const LangProfesseursIndexRoute = LangProfesseursIndexRouteImport.update({
   id: '/professeurs/',
   path: '/professeurs/',
@@ -255,6 +261,7 @@ export interface FileRoutesByFullPath {
   '/$lang/': typeof LangIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/professeurs/': typeof ProfesseursIndexRoute
+  '/$lang/professeur/$slug': typeof LangProfesseurSlugRoute
   '/demandes/$id': typeof AuthenticatedDemandesIdRoute
   '/pro/demandes': typeof AuthenticatedProDemandesRoute
   '/pro/inscription': typeof AuthenticatedProInscriptionRoute
@@ -291,6 +298,7 @@ export interface FileRoutesByTo {
   '/$lang': typeof LangIndexRoute
   '/blog': typeof BlogIndexRoute
   '/professeurs': typeof ProfesseursIndexRoute
+  '/$lang/professeur/$slug': typeof LangProfesseurSlugRoute
   '/demandes/$id': typeof AuthenticatedDemandesIdRoute
   '/pro/demandes': typeof AuthenticatedProDemandesRoute
   '/pro/inscription': typeof AuthenticatedProInscriptionRoute
@@ -330,6 +338,7 @@ export interface FileRoutesById {
   '/$lang/': typeof LangIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/professeurs/': typeof ProfesseursIndexRoute
+  '/$lang/professeur/$slug': typeof LangProfesseurSlugRoute
   '/_authenticated/demandes/$id': typeof AuthenticatedDemandesIdRoute
   '/_authenticated/pro/demandes': typeof AuthenticatedProDemandesRoute
   '/_authenticated/pro/inscription': typeof AuthenticatedProInscriptionRoute
@@ -369,6 +378,7 @@ export interface FileRouteTypes {
     | '/$lang/'
     | '/blog/'
     | '/professeurs/'
+    | '/$lang/professeur/$slug'
     | '/demandes/$id'
     | '/pro/demandes'
     | '/pro/inscription'
@@ -405,6 +415,7 @@ export interface FileRouteTypes {
     | '/$lang'
     | '/blog'
     | '/professeurs'
+    | '/$lang/professeur/$slug'
     | '/demandes/$id'
     | '/pro/demandes'
     | '/pro/inscription'
@@ -443,6 +454,7 @@ export interface FileRouteTypes {
     | '/$lang/'
     | '/blog/'
     | '/professeurs/'
+    | '/$lang/professeur/$slug'
     | '/_authenticated/demandes/$id'
     | '/_authenticated/pro/demandes'
     | '/_authenticated/pro/inscription'
@@ -640,6 +652,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfesseursIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$lang/professeur/$slug': {
+      id: '/$lang/professeur/$slug'
+      path: '/professeur/$slug'
+      fullPath: '/$lang/professeur/$slug'
+      preLoaderRoute: typeof LangProfesseurSlugRouteImport
+      parentRoute: typeof LangRoute
+    }
     '/$lang/professeurs/': {
       id: '/$lang/professeurs/'
       path: '/professeurs'
@@ -770,6 +789,7 @@ const AuthenticatedRouteRouteWithChildren =
 
 interface LangRouteChildren {
   LangIndexRoute: typeof LangIndexRoute
+  LangProfesseurSlugRoute: typeof LangProfesseurSlugRoute
   LangProfesseursIndexRoute: typeof LangProfesseursIndexRoute
   LangProfesseursVilleIndexRoute: typeof LangProfesseursVilleIndexRoute
   LangProfesseursVilleMatiereNiveauRoute: typeof LangProfesseursVilleMatiereNiveauRoute
@@ -778,6 +798,7 @@ interface LangRouteChildren {
 
 const LangRouteChildren: LangRouteChildren = {
   LangIndexRoute: LangIndexRoute,
+  LangProfesseurSlugRoute: LangProfesseurSlugRoute,
   LangProfesseursIndexRoute: LangProfesseursIndexRoute,
   LangProfesseursVilleIndexRoute: LangProfesseursVilleIndexRoute,
   LangProfesseursVilleMatiereNiveauRoute:
