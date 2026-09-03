@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LangRouteImport } from './routes/$lang'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ConditionsRouteImport } from './routes/conditions'
@@ -20,6 +21,7 @@ import { Route as PublierRouteImport } from './routes/publier'
 import { Route as TarifsRouteImport } from './routes/tarifs'
 import { Route as VerifierEmailRouteImport } from './routes/verifier-email'
 import { Route as VerifyEmailRouteImport } from './routes/verify-email'
+import { Route as LangIndexRouteImport } from './routes/$lang.index'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedCompteRouteImport } from './routes/_authenticated/compte'
 import { Route as AuthenticatedMessagesRouteImport } from './routes/_authenticated/messages'
@@ -29,6 +31,7 @@ import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ProfesseursIndexRouteImport } from './routes/professeurs.index'
 import { Route as ProfesseursIdRouteImport } from './routes/professeurs.$id'
+import { Route as LangProfesseursIndexRouteImport } from './routes/$lang.professeurs.index'
 import { Route as AuthenticatedDemandesIndexRouteImport } from './routes/_authenticated/demandes.index'
 import { Route as AuthenticatedDemandesIdRouteImport } from './routes/_authenticated/demandes.$id'
 import { Route as AuthenticatedProIndexRouteImport } from './routes/_authenticated/pro.index'
@@ -38,11 +41,18 @@ import { Route as ArBlogIndexRouteImport } from './routes/ar.blog.index'
 import { Route as ArBlogSlugRouteImport } from './routes/ar.blog.$slug'
 import { Route as FrBlogIndexRouteImport } from './routes/fr.blog.index'
 import { Route as FrBlogSlugRouteImport } from './routes/fr.blog.$slug'
+import { Route as LangProfesseursVilleIndexRouteImport } from './routes/$lang.professeurs.$ville.index'
 import { Route as ApiPublicCronExpireLaunchOffersRouteImport } from './routes/api/public/cron/expire-launch-offers'
+import { Route as LangProfesseursVilleMatiereIndexRouteImport } from './routes/$lang.professeurs.$ville.$matiere.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LangRoute = LangRouteImport.update({
+  id: '/$lang',
+  path: '/$lang',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -94,6 +104,11 @@ const VerifyEmailRoute = VerifyEmailRouteImport.update({
   path: '/verify-email',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LangIndexRoute = LangIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LangRoute,
+} as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -138,6 +153,11 @@ const ProfesseursIdRoute = ProfesseursIdRouteImport.update({
   id: '/professeurs/$id',
   path: '/professeurs/$id',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LangProfesseursIndexRoute = LangProfesseursIndexRouteImport.update({
+  id: '/professeurs/',
+  path: '/professeurs/',
+  getParentRoute: () => LangRoute,
 } as any)
 const AuthenticatedDemandesIndexRoute =
   AuthenticatedDemandesIndexRouteImport.update({
@@ -187,15 +207,28 @@ const FrBlogSlugRoute = FrBlogSlugRouteImport.update({
   path: '/fr/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LangProfesseursVilleIndexRoute =
+  LangProfesseursVilleIndexRouteImport.update({
+    id: '/professeurs/$ville/',
+    path: '/professeurs/$ville/',
+    getParentRoute: () => LangRoute,
+  } as any)
 const ApiPublicCronExpireLaunchOffersRoute =
   ApiPublicCronExpireLaunchOffersRouteImport.update({
     id: '/api/public/cron/expire-launch-offers',
     path: '/api/public/cron/expire-launch-offers',
     getParentRoute: () => rootRouteImport,
   } as any)
+const LangProfesseursVilleMatiereIndexRoute =
+  LangProfesseursVilleMatiereIndexRouteImport.update({
+    id: '/professeurs/$ville/$matiere/',
+    path: '/professeurs/$ville/$matiere/',
+    getParentRoute: () => LangRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$lang': typeof LangRouteWithChildren
   '/auth': typeof AuthRoute
   '/conditions': typeof ConditionsRoute
   '/confidentialite': typeof ConfidentialiteRoute
@@ -212,6 +245,7 @@ export interface FileRoutesByFullPath {
   '/avis/$token': typeof AvisTokenRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/professeurs/$id': typeof ProfesseursIdRoute
+  '/$lang/': typeof LangIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/professeurs/': typeof ProfesseursIndexRoute
   '/demandes/$id': typeof AuthenticatedDemandesIdRoute
@@ -219,11 +253,14 @@ export interface FileRoutesByFullPath {
   '/pro/inscription': typeof AuthenticatedProInscriptionRoute
   '/ar/blog/$slug': typeof ArBlogSlugRoute
   '/fr/blog/$slug': typeof FrBlogSlugRoute
+  '/$lang/professeurs/': typeof LangProfesseursIndexRoute
   '/demandes/': typeof AuthenticatedDemandesIndexRoute
   '/pro/': typeof AuthenticatedProIndexRoute
   '/ar/blog/': typeof ArBlogIndexRoute
   '/fr/blog/': typeof FrBlogIndexRoute
   '/api/public/cron/expire-launch-offers': typeof ApiPublicCronExpireLaunchOffersRoute
+  '/$lang/professeurs/$ville/': typeof LangProfesseursVilleIndexRoute
+  '/$lang/professeurs/$ville/$matiere/': typeof LangProfesseursVilleMatiereIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -243,6 +280,7 @@ export interface FileRoutesByTo {
   '/avis/$token': typeof AvisTokenRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/professeurs/$id': typeof ProfesseursIdRoute
+  '/$lang': typeof LangIndexRoute
   '/blog': typeof BlogIndexRoute
   '/professeurs': typeof ProfesseursIndexRoute
   '/demandes/$id': typeof AuthenticatedDemandesIdRoute
@@ -250,16 +288,20 @@ export interface FileRoutesByTo {
   '/pro/inscription': typeof AuthenticatedProInscriptionRoute
   '/ar/blog/$slug': typeof ArBlogSlugRoute
   '/fr/blog/$slug': typeof FrBlogSlugRoute
+  '/$lang/professeurs': typeof LangProfesseursIndexRoute
   '/demandes': typeof AuthenticatedDemandesIndexRoute
   '/pro': typeof AuthenticatedProIndexRoute
   '/ar/blog': typeof ArBlogIndexRoute
   '/fr/blog': typeof FrBlogIndexRoute
   '/api/public/cron/expire-launch-offers': typeof ApiPublicCronExpireLaunchOffersRoute
+  '/$lang/professeurs/$ville': typeof LangProfesseursVilleIndexRoute
+  '/$lang/professeurs/$ville/$matiere': typeof LangProfesseursVilleMatiereIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/$lang': typeof LangRouteWithChildren
   '/auth': typeof AuthRoute
   '/conditions': typeof ConditionsRoute
   '/confidentialite': typeof ConfidentialiteRoute
@@ -276,6 +318,7 @@ export interface FileRoutesById {
   '/avis/$token': typeof AvisTokenRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/professeurs/$id': typeof ProfesseursIdRoute
+  '/$lang/': typeof LangIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/professeurs/': typeof ProfesseursIndexRoute
   '/_authenticated/demandes/$id': typeof AuthenticatedDemandesIdRoute
@@ -283,16 +326,20 @@ export interface FileRoutesById {
   '/_authenticated/pro/inscription': typeof AuthenticatedProInscriptionRoute
   '/ar/blog/$slug': typeof ArBlogSlugRoute
   '/fr/blog/$slug': typeof FrBlogSlugRoute
+  '/$lang/professeurs/': typeof LangProfesseursIndexRoute
   '/_authenticated/demandes/': typeof AuthenticatedDemandesIndexRoute
   '/_authenticated/pro/': typeof AuthenticatedProIndexRoute
   '/ar/blog/': typeof ArBlogIndexRoute
   '/fr/blog/': typeof FrBlogIndexRoute
   '/api/public/cron/expire-launch-offers': typeof ApiPublicCronExpireLaunchOffersRoute
+  '/$lang/professeurs/$ville/': typeof LangProfesseursVilleIndexRoute
+  '/$lang/professeurs/$ville/$matiere/': typeof LangProfesseursVilleMatiereIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$lang'
     | '/auth'
     | '/conditions'
     | '/confidentialite'
@@ -309,6 +356,7 @@ export interface FileRouteTypes {
     | '/avis/$token'
     | '/blog/$slug'
     | '/professeurs/$id'
+    | '/$lang/'
     | '/blog/'
     | '/professeurs/'
     | '/demandes/$id'
@@ -316,11 +364,14 @@ export interface FileRouteTypes {
     | '/pro/inscription'
     | '/ar/blog/$slug'
     | '/fr/blog/$slug'
+    | '/$lang/professeurs/'
     | '/demandes/'
     | '/pro/'
     | '/ar/blog/'
     | '/fr/blog/'
     | '/api/public/cron/expire-launch-offers'
+    | '/$lang/professeurs/$ville/'
+    | '/$lang/professeurs/$ville/$matiere/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -340,6 +391,7 @@ export interface FileRouteTypes {
     | '/avis/$token'
     | '/blog/$slug'
     | '/professeurs/$id'
+    | '/$lang'
     | '/blog'
     | '/professeurs'
     | '/demandes/$id'
@@ -347,15 +399,19 @@ export interface FileRouteTypes {
     | '/pro/inscription'
     | '/ar/blog/$slug'
     | '/fr/blog/$slug'
+    | '/$lang/professeurs'
     | '/demandes'
     | '/pro'
     | '/ar/blog'
     | '/fr/blog'
     | '/api/public/cron/expire-launch-offers'
+    | '/$lang/professeurs/$ville'
+    | '/$lang/professeurs/$ville/$matiere'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/$lang'
     | '/auth'
     | '/conditions'
     | '/confidentialite'
@@ -372,6 +428,7 @@ export interface FileRouteTypes {
     | '/avis/$token'
     | '/blog/$slug'
     | '/professeurs/$id'
+    | '/$lang/'
     | '/blog/'
     | '/professeurs/'
     | '/_authenticated/demandes/$id'
@@ -379,16 +436,20 @@ export interface FileRouteTypes {
     | '/_authenticated/pro/inscription'
     | '/ar/blog/$slug'
     | '/fr/blog/$slug'
+    | '/$lang/professeurs/'
     | '/_authenticated/demandes/'
     | '/_authenticated/pro/'
     | '/ar/blog/'
     | '/fr/blog/'
     | '/api/public/cron/expire-launch-offers'
+    | '/$lang/professeurs/$ville/'
+    | '/$lang/professeurs/$ville/$matiere/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  LangRoute: typeof LangRouteWithChildren
   AuthRoute: typeof AuthRoute
   ConditionsRoute: typeof ConditionsRoute
   ConfidentialiteRoute: typeof ConfidentialiteRoute
@@ -417,6 +478,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$lang': {
+      id: '/$lang'
+      path: '/$lang'
+      fullPath: '/$lang'
+      preLoaderRoute: typeof LangRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -489,6 +557,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VerifyEmailRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$lang/': {
+      id: '/$lang/'
+      path: '/'
+      fullPath: '/$lang/'
+      preLoaderRoute: typeof LangIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -551,6 +626,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/professeurs/$id'
       preLoaderRoute: typeof ProfesseursIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/$lang/professeurs/': {
+      id: '/$lang/professeurs/'
+      path: '/professeurs'
+      fullPath: '/$lang/professeurs/'
+      preLoaderRoute: typeof LangProfesseursIndexRouteImport
+      parentRoute: typeof LangRoute
     }
     '/_authenticated/demandes/': {
       id: '/_authenticated/demandes/'
@@ -615,12 +697,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FrBlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$lang/professeurs/$ville/': {
+      id: '/$lang/professeurs/$ville/'
+      path: '/professeurs/$ville'
+      fullPath: '/$lang/professeurs/$ville/'
+      preLoaderRoute: typeof LangProfesseursVilleIndexRouteImport
+      parentRoute: typeof LangRoute
+    }
     '/api/public/cron/expire-launch-offers': {
       id: '/api/public/cron/expire-launch-offers'
       path: '/api/public/cron/expire-launch-offers'
       fullPath: '/api/public/cron/expire-launch-offers'
       preLoaderRoute: typeof ApiPublicCronExpireLaunchOffersRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/$lang/professeurs/$ville/$matiere/': {
+      id: '/$lang/professeurs/$ville/$matiere/'
+      path: '/professeurs/$ville/$matiere'
+      fullPath: '/$lang/professeurs/$ville/$matiere/'
+      preLoaderRoute: typeof LangProfesseursVilleMatiereIndexRouteImport
+      parentRoute: typeof LangRoute
     }
   }
 }
@@ -652,9 +748,26 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface LangRouteChildren {
+  LangIndexRoute: typeof LangIndexRoute
+  LangProfesseursIndexRoute: typeof LangProfesseursIndexRoute
+  LangProfesseursVilleIndexRoute: typeof LangProfesseursVilleIndexRoute
+  LangProfesseursVilleMatiereIndexRoute: typeof LangProfesseursVilleMatiereIndexRoute
+}
+
+const LangRouteChildren: LangRouteChildren = {
+  LangIndexRoute: LangIndexRoute,
+  LangProfesseursIndexRoute: LangProfesseursIndexRoute,
+  LangProfesseursVilleIndexRoute: LangProfesseursVilleIndexRoute,
+  LangProfesseursVilleMatiereIndexRoute: LangProfesseursVilleMatiereIndexRoute,
+}
+
+const LangRouteWithChildren = LangRoute._addFileChildren(LangRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  LangRoute: LangRouteWithChildren,
   AuthRoute: AuthRoute,
   ConditionsRoute: ConditionsRoute,
   ConfidentialiteRoute: ConfidentialiteRoute,
