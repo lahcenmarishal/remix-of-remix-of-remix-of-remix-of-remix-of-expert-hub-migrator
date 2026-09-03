@@ -52,10 +52,11 @@ export const nav = (key: keyof typeof NAV, lang: SeoLang) => NAV[key][lang];
 type Copy = { h1: string; intro: string; title: string; description: string };
 
 const trim160 = (s: string) => (s.length > 158 ? `${s.slice(0, 155)}…` : s);
-const pack = (h1: string, intro: string, title: string): Copy => ({
+/** `titleLead` = partie descriptive du <title>, la marque est ajoutée ici. */
+const pack = (h1: string, intro: string, titleLead: string): Copy => ({
   h1,
   intro,
-  title: title.length > 60 ? title.slice(0, 59) : title,
+  title: withBrand(titleLead),
   description: trim160(intro),
 });
 
