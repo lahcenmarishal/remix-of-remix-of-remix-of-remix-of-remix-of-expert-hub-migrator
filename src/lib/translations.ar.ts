@@ -37,6 +37,7 @@ export const AR: Record<string, string> = {
   "Besoin d'un professeur ?": "تحتاج إلى أستاذ؟",
   "Biologie générale": "بيولوجيا عامة",
   "Bonjour, je suis intéressé par votre demande.": "مرحبًا، أنا مهتم بطلبك.",
+  "Bonjour ": "مرحباً ",
   "Budget maximum souhaité (DH/h)": "الميزانية القصوى المرغوبة (درهم/ساعة)",
   "Budget à discuter": "الميزانية قابلة للنقاش",
   "C'est votre profil professeur.": "هذا ملفك الشخصي كأستاذ.",
