@@ -1,7 +1,35 @@
 /** Textes éditoriaux FR/AR des pages de destination SEO. */
 import type { SeoCity, SeoLang, SeoLevel, SeoSubject } from "@/lib/seo-taxonomy";
 
-const BRAND = "ProFinder";
+const BRAND = "Profinder";
+
+/** Forme courte naturelle des matières dans un <title> ville+matière. */
+const SUBJECT_SHORT_FR: Record<string, string> = {
+  mathematiques: "maths",
+  "physique-chimie": "physique-chimie",
+  "histoire-geographie": "histoire-géo",
+  gestion: "gestion",
+};
+/** Forme courte des niveaux (titres arabes et français). */
+const LEVEL_SHORT: Record<string, { fr: string; ar: string }> = {
+  lycee: { fr: "lycée", ar: "الثانوي" },
+  college: { fr: "collège", ar: "الإعدادي" },
+  primaire: { fr: "primaire", ar: "الابتدائي" },
+  superieur: { fr: "supérieur", ar: "التعليم العالي" },
+};
+
+export const shortSubjectFr = (s: SeoSubject) => SUBJECT_SHORT_FR[s.slug] ?? s.fr.toLowerCase();
+const shortLevel = (l: SeoLevel, lang: SeoLang) =>
+  LEVEL_SHORT[l.slug]?.[lang] ?? (lang === "fr" ? l.fr.toLowerCase() : l.ar);
+/** « أستاذ الرياضيات » → « أساتذة الرياضيات » */
+const arTeachersPlural = (s: SeoSubject) => s.arTeacher.replace(/^أستاذ/, "أساتذة");
+
+/** Titre unique : partie descriptive + marque, sans jamais tronquer la marque. */
+export const withBrand = (lead: string, sep: "|" | "—" = "|") => {
+  const max = 60 - BRAND.length - 3;
+  const head = lead.length > max ? `${lead.slice(0, max - 1).trim()}…` : lead;
+  return `${head} ${sep} ${BRAND}`;
+};
 
 export const label = {
   city: (c: SeoCity, lang: SeoLang) => (lang === "fr" ? c.fr : c.ar),
