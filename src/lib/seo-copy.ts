@@ -125,7 +125,18 @@ export function teachersCopy(
   } else {
     leadAr = ["أساتذة خصوصيون", levelAr, "في المغرب"].filter(Boolean).join(" ");
   }
-  return pack(h1, intro, leadAr);
+  // Meta description arabe propre à l'intention (مدينة / مادة / مستوى).
+  let descAr: string;
+  if (subject && city) {
+    descAr = `ابحث عن ${subject.arTeacher}${lvlAr ? ` لمستوى ${lvlAr}` : ""} ${city.arIn} عبر Profinder. اكتشف الأساتذة المتاحين حسب المستوى والمادة وطريقة التدريس والسعر.`;
+  } else if (subject) {
+    descAr = `${arTeachersPlural(subject)} في المغرب${lvlAr ? ` لمستوى ${lvlAr}` : ""}: ملفات موثوقة، المدينة، السعر بالساعة وآراء التلاميذ على Profinder.`;
+  } else if (city) {
+    descAr = `أساتذة خصوصيون ${city.arIn}${lvlAr ? ` لمستوى ${lvlAr}` : ""}: قارن المواد المدرّسة والأسعار والتوفر، واختر الأستاذ المناسب لك عبر Profinder.`;
+  } else {
+    descAr = `قارن الأساتذة الخصوصيين في المغرب${lvlAr ? ` لمستوى ${lvlAr}` : ""}: المادة، المدينة، السعر بالساعة والآراء. انشر طلبك واستقبل العروض في 24 ساعة.`;
+  }
+  return pack(h1, intro, leadAr, descAr);
 }
 
 export function coursesCopy(lang: SeoLang, city: SeoCity | null, subject: SeoSubject | null): Copy {
@@ -134,18 +145,25 @@ export function coursesCopy(lang: SeoLang, city: SeoCity | null, subject: SeoSub
   if (lang === "fr") {
     const suffix = [s ? `de ${s}` : null, c ? `à ${c}` : null].filter(Boolean).join(" ");
     const t = suffix ? ` ${suffix}` : "";
-    return pack(
-      `Cours particuliers${t}`,
-      `Cours particuliers${t} à domicile, chez le professeur ou en ligne. Comparez les tarifs, les niveaux enseignés et réservez avec un professeur vérifié.`,
-      `Cours particuliers${t}`,
-    );
+    const descFr = city
+      ? `Réservez des cours particuliers${s ? ` de ${s}` : ""} à ${c} : à domicile, chez le professeur ou en ligne. Tarifs, niveaux enseignés et disponibilités sur Profinder.`
+      : s
+        ? `Cours particuliers de ${s} au Maroc : trouvez un professeur par ville et par niveau, comparez les tarifs horaires et réservez votre premier cours.`
+        : `Cours particuliers et soutien scolaire au Maroc : choisissez une ville et une matière, comparez les professeurs vérifiés et réservez à domicile ou en ligne.`;
+    return pack(`Cours particuliers${t}`, `Cours particuliers${t} à domicile, chez le professeur ou en ligne. Comparez les tarifs, les niveaux enseignés et réservez avec un professeur vérifié.`, `Cours particuliers${t}`, descFr);
   }
   const t = [s ? `في ${s}` : null, city ? city.arIn : null].filter(Boolean).join(" ");
   const h1 = `دروس خصوصية${t ? ` ${t}` : " في المغرب"}`;
+  const descAr = city
+    ? `احجز دروسا خصوصية${s ? ` في ${s}` : ""} ${city.arIn}: في المنزل أو عند الأستاذ أو عن بعد. الأسعار والمستويات والتوفر عبر Profinder.`
+    : s
+      ? `دروس الدعم في ${s} بالمغرب: اختر الأستاذ حسب المدينة والمستوى، قارن الأسعار بالساعة واحجز درسك الأول.`
+      : `دروس خصوصية ودعم مدرسي في المغرب: اختر المدينة والمادة، قارن الأساتذة الموثوقين واحجز في المنزل أو عن بعد.`;
   return pack(
     h1,
     `${s ? `دروس الدعم في ${s}` : "دروس الدعم المدرسي"}${city ? ` ${city.arBi}` : ""}: في المنزل أو عند الأستاذ أو عن بعد. قارن الأسعار والمستويات واحجز مع أستاذ موثوق.`,
     `${h1}`,
+    descAr,
   );
 }
 
@@ -198,11 +216,13 @@ export function levelCopy(lang: SeoLang, level: SeoLevel): Copy {
         `Soutien scolaire ${l}`,
         `Professeurs particuliers spécialisés dans le niveau ${l} : méthodes adaptées, préparation aux contrôles et aux examens, suivi régulier des progrès.`,
         `Soutien scolaire ${l}`,
+        `Trouvez un professeur particulier pour le niveau ${l} au Maroc sur Profinder : matières couvertes, villes, tarifs horaires et disponibilités des enseignants.`,
       )
     : pack(
         `الدعم المدرسي ${l}`,
         `أساتذة خصوصيون متخصصون في مستوى ${l}: طرق ملائمة، التحضير للفروض والامتحانات ومتابعة منتظمة للتقدم.`,
         `الدعم المدرسي ${l}`,
+        `ابحث عن أستاذ خصوصي لمستوى ${l} في المغرب عبر Profinder: المواد المتاحة، المدن، الأسعار بالساعة وتوفر الأساتذة.`,
       );
 }
 
@@ -213,11 +233,13 @@ export function subjectCopy(lang: SeoLang, subject: SeoSubject): Copy {
         `Cours de ${s}`,
         `Professeurs de ${s} au Maroc : tous niveaux, cours à domicile ou en ligne, tarifs transparents et avis vérifiés d'élèves.`,
         `Cours de ${s}`,
+        `Trouvez un professeur de ${s.toLowerCase()} au Maroc sur Profinder. Consultez les profils par ville, les niveaux enseignés, les disponibilités et les tarifs.`,
       )
     : pack(
         `دروس ${s}`,
         `${subject.arTeacher} في المغرب: جميع المستويات، دروس الدعم في المنزل أو عن بعد، أسعار واضحة وآراء موثوقة.`,
         `دروس ${s}`,
+        `ابحث عن ${subject.arTeacher} في المغرب عبر Profinder. اكتشف الأساتذة حسب المدينة والمستوى وطريقة التدريس والسعر بالساعة.`,
       );
 }
 
@@ -228,11 +250,13 @@ export function cityCopy(lang: SeoLang, city: SeoCity): Copy {
         `Cours particuliers à ${c}`,
         `Soutien scolaire à ${c} : professeurs vérifiés par matière et par niveau, cours à domicile ou en ligne, réponse à votre demande en moins de 24 h.`,
         `Cours particuliers à ${c}`,
+        `Trouvez un professeur particulier à ${c} sur Profinder. Consultez les profils par matière, les niveaux enseignés, les disponibilités et les tarifs horaires.`,
       )
     : pack(
         `دروس خصوصية ${city.arIn}`,
         `الدعم المدرسي ${city.arBi}: أساتذة موثوقون حسب المادة والمستوى، دروس في المنزل أو عن بعد، ورد على طلبك في أقل من 24 ساعة.`,
         `دروس خصوصية ${city.arIn}`,
+        `ابحث عن أستاذ خصوصي ${city.arIn} عبر Profinder. اكتشف الأساتذة المتاحين حسب المادة والمستوى وطريقة التدريس والسعر.`,
       );
 }
 
