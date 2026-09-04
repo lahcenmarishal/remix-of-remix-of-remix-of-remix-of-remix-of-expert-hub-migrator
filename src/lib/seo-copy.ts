@@ -250,11 +250,13 @@ export function cityCopy(lang: SeoLang, city: SeoCity): Copy {
         `Cours particuliers à ${c}`,
         `Soutien scolaire à ${c} : professeurs vérifiés par matière et par niveau, cours à domicile ou en ligne, réponse à votre demande en moins de 24 h.`,
         `Cours particuliers à ${c}`,
+        `Trouvez un professeur particulier à ${c} sur Profinder. Consultez les profils par matière, les niveaux enseignés, les disponibilités et les tarifs horaires.`,
       )
     : pack(
         `دروس خصوصية ${city.arIn}`,
         `الدعم المدرسي ${city.arBi}: أساتذة موثوقون حسب المادة والمستوى، دروس في المنزل أو عن بعد، ورد على طلبك في أقل من 24 ساعة.`,
         `دروس خصوصية ${city.arIn}`,
+        `ابحث عن أستاذ خصوصي ${city.arIn} عبر Profinder. اكتشف الأساتذة المتاحين حسب المادة والمستوى وطريقة التدريس والسعر.`,
       );
 }
 
