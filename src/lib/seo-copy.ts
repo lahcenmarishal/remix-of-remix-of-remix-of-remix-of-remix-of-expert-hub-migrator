@@ -216,11 +216,13 @@ export function levelCopy(lang: SeoLang, level: SeoLevel): Copy {
         `Soutien scolaire ${l}`,
         `Professeurs particuliers spécialisés dans le niveau ${l} : méthodes adaptées, préparation aux contrôles et aux examens, suivi régulier des progrès.`,
         `Soutien scolaire ${l}`,
+        `Trouvez un professeur particulier pour le niveau ${l} au Maroc sur Profinder : matières couvertes, villes, tarifs horaires et disponibilités des enseignants.`,
       )
     : pack(
         `الدعم المدرسي ${l}`,
         `أساتذة خصوصيون متخصصون في مستوى ${l}: طرق ملائمة، التحضير للفروض والامتحانات ومتابعة منتظمة للتقدم.`,
         `الدعم المدرسي ${l}`,
+        `ابحث عن أستاذ خصوصي لمستوى ${l} في المغرب عبر Profinder: المواد المتاحة، المدن، الأسعار بالساعة وتوفر الأساتذة.`,
       );
 }
 
@@ -231,11 +233,13 @@ export function subjectCopy(lang: SeoLang, subject: SeoSubject): Copy {
         `Cours de ${s}`,
         `Professeurs de ${s} au Maroc : tous niveaux, cours à domicile ou en ligne, tarifs transparents et avis vérifiés d'élèves.`,
         `Cours de ${s}`,
+        `Trouvez un professeur de ${s.toLowerCase()} au Maroc sur Profinder. Consultez les profils par ville, les niveaux enseignés, les disponibilités et les tarifs.`,
       )
     : pack(
         `دروس ${s}`,
         `${subject.arTeacher} في المغرب: جميع المستويات، دروس الدعم في المنزل أو عن بعد، أسعار واضحة وآراء موثوقة.`,
         `دروس ${s}`,
+        `ابحث عن ${subject.arTeacher} في المغرب عبر Profinder. اكتشف الأساتذة حسب المدينة والمستوى وطريقة التدريس والسعر بالساعة.`,
       );
 }
 
